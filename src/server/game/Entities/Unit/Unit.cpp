@@ -11947,7 +11947,6 @@ void Unit::CombatStart(Unit* target, bool initialAggro)
         SetInCombatWith(target);
         target->SetInCombatWith(this);
     }
- 
     Unit *who = target->GetCharmerOrOwnerOrSelf();
     if (who->GetTypeId() == TYPEID_PLAYER)
       SetContestedPvP(who->ToPlayer());
@@ -12759,7 +12758,7 @@ Unit* Creature::SelectVictim()
                 // next iteration we will select next possible target
                 getHostileRefManager().deleteReference(target);
                 m_ThreatManager.modifyThreatPercent(target, -101);
-                        
+
                 _removeAttacker(target);
             }
             return false;

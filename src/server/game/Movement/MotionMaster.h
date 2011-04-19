@@ -165,7 +165,6 @@ class MotionMaster //: private std::stack<MovementGenerator *>
         void MoveRotate(uint32 time, RotateDirection direction);
         virtual bool isReachable() const { return true; }
 
-
         MovementGeneratorType GetCurrentMovementGeneratorType() const;
         MovementGeneratorType GetMotionSlotType(int slot) const;
 
