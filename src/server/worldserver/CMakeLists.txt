@@ -162,6 +162,8 @@ target_link_libraries(worldserver
   game
   shared
   scripts
+  Detour
+  Recast
   collision
   g3dlib
   gsoap

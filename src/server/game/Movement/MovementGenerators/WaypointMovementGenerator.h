@@ -30,6 +30,7 @@
 #include "WaypointManager.h"
 #include "Path.h"
 #include "Traveller.h"
+#include "PathFinder.h"
 
 #include "Player.h"
 
@@ -82,6 +83,7 @@ class WaypointMovementGenerator
         MovementGeneratorType GetMovementGeneratorType() { return WAYPOINT_MOTION_TYPE; }
 
     private:
+        void MoveToNextNode(CreatureTraveller &traveller);
         WaypointData *node;
         uint32 path_id;
         TimeTrackerSmall i_nextMoveTime;

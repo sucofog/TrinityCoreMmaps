@@ -768,6 +768,12 @@ void Object::BuildFieldsUpdate(Player *pl, UpdateDataMapType &data_map) const
     BuildValuesUpdateBlockForPlayer(&iter->second, iter->first);
 }
 
+float WorldObject::GetDistanceSqr(float x, float y, float z) const
+{
+    float dist = GetExactDistSq(x, y, z) - GetObjectSize();
+    return (dist > 0.0f ? dist : 0.0f);
+}
+
 bool Object::LoadValues(const char* data)
 {
     if (!m_uint32Values) _InitValues();
@@ -1504,6 +1510,29 @@ void Position::GetSinCos(const float x, const float y, float &vsin, float &vcos)
         vcos = dx / dist;
         vsin = dy / dist;
     }
+}
+bool Position::HasInArc(const float arcangle, const float x, const float y) const
+{
+    // always have self in arc
+    if (x == m_positionX && y == m_positionY)
+        return true;
+
+    float arc = arcangle;
+
+    // move arc to range 0.. 2*pi
+    arc = MapManager::NormalizeOrientation(arc);
+
+    float angle = GetAngle(x, y);
+    angle -= m_orientation;
+
+    // move angle to range -pi ... +pi
+    angle = MapManager::NormalizeOrientation(angle);
+    if (angle > M_PI)
+        angle -= 2.0f*M_PI;
+
+    float lborder =  -1 * (arc/2.0f);                       // in range -pi..0
+    float rborder = (arc/2.0f);                             // in range 0..pi
+    return (( angle >= lborder ) && ( angle <= rborder ));
 }
 
 bool Position::HasInArc(float arc, const Position *obj) const

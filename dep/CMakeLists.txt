@@ -42,3 +42,5 @@ endif()
 if(TOOLS)
   add_subdirectory(libmpq)
 endif()
+
+add_subdirectory(recastnavigation)
